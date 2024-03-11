@@ -77,11 +77,11 @@ const pokemonList = {
   id: 132
 }*/
 
-const next = {
+/*const next = {
   url: 'https://pokeapi.co/api/v2/pokemon/134/',
   name: 'vaporeon',
   id: 134
-}
+}*/
 
 describe('<PokemonPage />', () => {
   it('should render abilities', async () => {
