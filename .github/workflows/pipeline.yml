@@ -18,13 +18,25 @@ jobs:
 
       - name: Check style
         run: npm run eslint
+        uses: Ilshidur/action-discord@master
+        with:
+            webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            content: "Check style completed successfully!"
 
       - name: Build project
         run: npm run build
         if: ${{ github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
+        uses: Ilshidur/action-discord@master
+        with:
+            webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            content: "Build project completed successfully!"
 
       - name: Test project
         run: npm run test
+        uses: Ilshidur/action-discord@master
+        with:
+            webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            content: "Test project completed successfully!"
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -35,9 +47,8 @@ jobs:
         uses: anothrNick/github-tag-action@1.67.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Notify Discord
-        uses: Ilshidur/action-discord@master
-        with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "New release tagged and pushed to main branch!"
+        - name: Notify Discord - Tagged release
+          uses: Ilshidur/action-discord@master
+          with:
+            webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
+            content: "New release tagged and pushed to main branch!"
