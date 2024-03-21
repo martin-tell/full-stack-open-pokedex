@@ -23,8 +23,8 @@ jobs:
       - name: Notify Discord - Check style
         uses: Ilshidur/action-discord@master
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Check style completed successfully!"
+          entryPoint: 'send'
+          args: '--webhook-url ${{ secrets.DISCORD_WEBHOOK_URL }} --content "Check style completed successfully!"'
 
       - name: Build project
         run: npm run build
@@ -33,8 +33,8 @@ jobs:
       - name: Notify Discord - Build project
         uses: Ilshidur/action-discord@master
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Build project completed successfully!"
+          entryPoint: 'send'
+          args: '--webhook-url ${{ secrets.DISCORD_WEBHOOK_URL }} --content "Build project completed successfully!"'
 
       - name: Test project
         run: npm run test
@@ -42,8 +42,8 @@ jobs:
       - name: Notify Discord - Test project
         uses: Ilshidur/action-discord@master
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "Test project completed successfully!"
+          entryPoint: 'send'
+          args: '--webhook-url ${{ secrets.DISCORD_WEBHOOK_URL }} --content "Test project completed successfully!"'
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -58,5 +58,5 @@ jobs:
       - name: Notify Discord - Tagged release
         uses: Ilshidur/action-discord@master
         with:
-          webhook_url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          content: "New release tagged and pushed to main branch!"
+          entryPoint: 'send'
+          args: '--webhook-url ${{ secrets.DISCORD_WEBHOOK_URL }} --content "New release tagged and pushed to main branch!"'
